@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Blog\Admin\CategoryController;
+use App\Http\Controllers\Api\Blog\Admin\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Blog\PostController;
@@ -14,11 +14,10 @@ Route::group([ 'namespace' => 'App\Http\Controllers\Api\Blog', 'prefix' => 'blog
 });
 
 $groupData = [
-    'namespace' => 'App\Http\Controllers\Blog\Admin',
+    'namespace' => 'App\Http\Controllers\Api\Blog\Admin',
     'prefix' => 'admin/blog',
 ];
 Route::group($groupData, function () {
-    //BlogCategory
     $methods = ['index','store','update','show'];
     Route::apiResource('categories', CategoryController::class)
         ->only($methods)

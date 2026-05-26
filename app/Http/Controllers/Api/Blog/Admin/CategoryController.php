@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Blog\Admin;
+namespace App\Http\Controllers\Api\Blog\Admin;
 
 //use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
@@ -17,7 +17,8 @@ class CategoryController extends BaseController
         $paginator = BlogCategory::paginate(5);
 
         return $paginator;
-       //dd(__METHOD__);
+        //dd(__METHOD__);
+
     }
 
     /**
@@ -36,6 +37,7 @@ class CategoryController extends BaseController
             return ['msg' => 'Помилка створення'];
         }
         //dd(__METHOD__);
+
     }
 
     /**
@@ -49,6 +51,7 @@ class CategoryController extends BaseController
         }
         return ['item' => $item];
         //dd(__METHOD__);
+
     }
 
     /**
@@ -57,10 +60,8 @@ class CategoryController extends BaseController
     public function update(Request $request, string $id)
     {
         $item = BlogCategory::find($id);
-        if (empty($item)) { //якщо ід не знайдено
-            return back() //redirect back
-            ->withErrors(['msg' => "Запис id=[{$id}] не знайдено"]) //видати помилку
-            ->withInput(); //повернути дані
+        if (empty($item)) {
+            return ['message' => "Запис id=[{$id}] не знайдено"];
         }
 
         $data = $request->all(); //отримаємо масив даних, які надійшли з форми
@@ -76,6 +77,7 @@ class CategoryController extends BaseController
             return ['msg' => 'Помилка збереження'];
         }
         //dd(__METHOD__);
+
     }
 
     /**
