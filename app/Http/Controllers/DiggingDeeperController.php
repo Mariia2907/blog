@@ -89,21 +89,21 @@ class DiggingDeeperController extends Controller
         });
 
         //dd ($collection);
-//
-//        $newItem = new \stdClass;
-//        $newItem->id = 9999;
-//
-//        $newItem2 = new \stdClass;
-//        $newItem2->id = 8888;
 
-        //dd ($newItem, $newItem2);
+        $newItem = new \stdClass;
+        $newItem->id = 9999;
 
-        //Додаємо елемент в початок/кінець колекції
-//        $newItemFirst = $collection->prepend($newItem)->first(); //додали в початок
-//        $newItemLast = $collection->push($newItem2)->last(); //додали в кінець
-//        $pulledItem = $collection->pull(1); //забрали з першим ключем
+        $newItem2 = new \stdClass;
+        $newItem2->id = 8888;
 
-        //dd(compact('collection', 'newItemFirst' , 'newItemLast', 'pulledItem'));
+//        //dd ($newItem, $newItem2);
+
+       // Додаємо елемент в початок/кінець колекції
+        $newItemFirst = $collection->prepend($newItem)->first(); //додали в початок
+        $newItemLast = $collection->push($newItem2)->last(); //додали в кінець
+        $pulledItem = $collection->pull(1); //забрали з першим ключем
+
+       // dd(compact('collection', 'newItemFirst' , 'newItemLast', 'pulledItem'));
 
         //Фільтрація
         $filtered = $collection->filter(function ($item) {
