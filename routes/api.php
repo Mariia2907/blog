@@ -20,7 +20,7 @@ $groupData = [
     'prefix' => 'admin/blog',
 ];
 Route::group($groupData, function () {
-    $methods = ['index','store','update','show'];
+    $methods = ['index','store','update','show','destroy'];
     Route::apiResource('categories', CategoryController::class)
         ->only($methods)
         ->names('blog.admin.categories');
