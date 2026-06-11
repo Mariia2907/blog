@@ -8,6 +8,7 @@ use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Resources\Api\Blog\Admin\CategoryResource;
 
 class CategoryController extends BaseController
 {
@@ -23,7 +24,7 @@ class CategoryController extends BaseController
     public function index()
     {
         $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
-        return $paginator;
+        return CategoryResource::collection($paginator);
         //dd(__METHOD__);
 
     }
