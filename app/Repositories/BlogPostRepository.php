@@ -19,11 +19,11 @@ class BlogPostRepository extends CoreRepository
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllWithPaginate()
+    public function getAllWithPaginate(int $perPage = 25, ?string $search = null)
     {
         $columns = ['id', 'title', 'slug', 'is_published', 'published_at', 'user_id', 'category_id',];
 
-        $result = $this->startConditions()
+        $query = $this->startConditions()
             ->select($columns)
             ->orderBy('id','DESC')
             ->with([
@@ -32,10 +32,18 @@ class BlogPostRepository extends CoreRepository
                 },
                 //'category:id,title',
                 'user:id,name',
-            ])
-            ->paginate(25);
+            ]);
 
-        return $result;
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('category', function ($q2) use ($search) {
+                        $q2->where('title', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        return $query->paginate($perPage);
     }
     /**
      *  Отримати модель для редагування в адмінці

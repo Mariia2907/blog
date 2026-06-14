@@ -31,6 +31,8 @@ class PostResource extends JsonResource
             // Приклад виведення зв'язку (якщо у моделі BlogPost налаштовано зв'язки category та user)
             'category_title' => $this->category?->title,
             'author_name'    => $this->user?->name,
+            'excerpt' => $this->excerpt,
+            'content_raw' => $this->content_raw,
         ];
     }
 }

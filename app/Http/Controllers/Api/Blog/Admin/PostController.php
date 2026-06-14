@@ -21,9 +21,15 @@ class PostController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paginator = $this->blogPostRepository->getAllWithPaginate();
+        $perPage = in_array((int) $request->get('per_page'), [10, 25, 50, 75, 100])
+            ? (int) $request->get('per_page')
+            : 25;
+
+        $search = $request->get('search');
+
+        $paginator = $this->blogPostRepository->getAllWithPaginate($perPage, $search);
 
         return PostResource::collection($paginator);
     }
@@ -50,7 +56,11 @@ class PostController extends BaseController
      */
     public function show(string $id)
     {
-        //
+        $item = $this->blogPostRepository->getEdit($id);
+        if (empty($item)) {
+            return response()->json(['message' => "Запис id=[{$id}] не знайдено"], 404);
+        }
+        return new PostResource($item->load(['category', 'user']));
     }
 
     /**

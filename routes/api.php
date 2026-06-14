@@ -27,7 +27,6 @@ Route::group($groupData, function () {
         ->names('blog.admin.categories');
 
     Route::apiResource('posts', AdminPostController::class)
-        ->except(['show'])
         ->names('blog.admin.posts');
 });
 
